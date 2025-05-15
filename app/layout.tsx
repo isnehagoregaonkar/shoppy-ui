@@ -1,9 +1,11 @@
 import "./globals.css";
 
+import { Container, CssBaseline, ThemeProvider } from "@mui/material";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import type { Metadata } from "next";
+import darkTheme from "./dark.theme";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +32,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={darkTheme}>
+            <CssBaseline />
+            <Container>{children}</Container>
+          </ThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
