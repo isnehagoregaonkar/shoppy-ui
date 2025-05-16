@@ -5,6 +5,7 @@ import NextLink from "next/link";
 const SignUp = () => {
   return (
     <Stack spacing={2} className="w-full max-w-xs">
+      <TextField label="Name" type="text" variant="outlined" />
       <TextField label="Email" type="email" variant="outlined" />
       <TextField label="Password" type="password" variant="outlined" />
       <Button variant="contained">Sign Up</Button>
