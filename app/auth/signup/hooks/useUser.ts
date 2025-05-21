@@ -20,14 +20,37 @@ export const useUsers = () => {
       password: "",
     },
   });
-
-  const [apiParams, setApiParams] = useState<IPaginatedApiParamsBase>();
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    severity: "success" as "error" | "success" | "warning" | "info",
+  });
+  const handleClose = () => {
+    setAlert((prev) => ({ ...prev, open: false }));
+  };
   const createUserMutation = useMutation({
     mutationFn: (data: any) => USER_MUTATIONS.createUser(data),
-    onSuccess: (data) => {
+    onSuccess: () => {
+      setAlert({
+        open: true,
+        message: "User created successfully!",
+        severity: "success",
+      });
       form.reset();
     },
-    onError: (error) => {
+    onError: (error: any) => {
+      console.error(
+        "Error creating user data msg:",
+        error?.response?.data?.message[0]
+      );
+      setAlert({
+        open: true,
+        message:
+          error?.response?.data?.message[0] ||
+          error?.message ||
+          "Failed to create user!",
+        severity: "error",
+      });
       console.error("Error creating user:", error);
     },
   });
@@ -38,12 +61,12 @@ export const useUsers = () => {
 
   return {
     ...form,
-    apiParams,
-    setApiParams,
     onSubmit,
     isSubmitting: createUserMutation.isPending,
     isSuccess: createUserMutation.isSuccess,
     isError: createUserMutation.isError,
     error: createUserMutation.error,
+    alert,
+    handleClose,
   };
 };

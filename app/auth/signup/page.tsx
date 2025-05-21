@@ -1,13 +1,13 @@
 "use client";
 
-import { Box, Button, Link, Stack } from "@mui/material";
+import { Alert, Box, Button, Link, Snackbar, Stack } from "@mui/material";
 
 import { ControlledTextField } from "@/app/components/ui/ControlledTextField";
 import NextLink from "next/link";
 import { useUsers } from "./hooks/useUser";
 
 const SignUp = () => {
-  const { onSubmit, isSubmitting, control } = useUsers();
+  const { onSubmit, isSubmitting, control, alert, handleClose } = useUsers();
   return (
     <Box
       component="form"
@@ -49,6 +49,22 @@ const SignUp = () => {
           Login
         </Link>
       </Stack>
+
+      {/* Snackbar and Alert */}
+      <Snackbar
+        open={alert.open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleClose}
+          severity={alert.severity}
+          className="capitalize"
+        >
+          {alert.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
