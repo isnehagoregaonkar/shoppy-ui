@@ -9,8 +9,14 @@ import { useUsers } from "./hooks/useUser";
 const SignUp = () => {
   const { onSubmit, isSubmitting, control } = useUsers();
   return (
-    <Box component="form" onSubmit={onSubmit}>
-      <Stack spacing={2} className="w-full max-w-xs">
+    <Box
+      component="form"
+      onSubmit={onSubmit}
+      className="w-full"
+      display="flex"
+      justifyContent="center"
+    >
+      <Stack spacing={2} className="w-full max-w-xs" justifyContent="center">
         <ControlledTextField
           name="name"
           control={control}
